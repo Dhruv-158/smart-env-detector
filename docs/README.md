@@ -47,7 +47,7 @@ To run the documentation site locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/smart-env-detector.git
+   git clone https://github.com/Dhruv-158/smart-env-detector.git
    cd smart-env-detector
    ```
 
@@ -83,7 +83,7 @@ To run the documentation site locally:
 
 2. **Your site will be available at:**
    ```
-   https://yourusername.github.io/smart-env-detector/
+   https://dhruv-158.github.io/smart-env-detector/
    ```
 
 ### Netlify
@@ -119,7 +119,7 @@ Upload the contents of the `docs` folder to your web server.
 ### Branding
 
 Update the following:
-- Replace `yourusername` with your actual GitHub username
+
 - Update social links in the footer
 - Add your own favicon to `assets/favicon.ico`
 - Customize colors in CSS variables (`:root` section)

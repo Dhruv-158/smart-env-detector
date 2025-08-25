@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://yourusername.github.io/smart-env-detector/sitemap.xml
+Sitemap: https://dhruv-158.github.io/smart-env-detector/sitemap.xml
 
 # Optimize crawling
 Crawl-delay: 1
