@@ -8,7 +8,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/smart-env-detector.svg)](https://bundlephobia.com/package/smart-env-detector)
 
-**A powerful, lightweight library for comprehensive environment detection in JavaScript applications**
+**A powerful, lightweight library for compr### Get Help
+
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/Dhruv-158/smart-env-detector/issues)
+- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/Dhruv-158/smart-env-detector/discussions)
+- ❓ **Questions**: [Stack Overflow](https://stackoverflow.com/questions/tagged/smart-env-detector)
+
+### Stay Updated
+
+- ⭐ **Star** the repository to stay updated
+- 👀 **Watch** for new releases and updates
+- 📢 **Follow** for announcementsvironment detection in JavaScript applications**
 
 *Detect platforms, capabilities, performance metrics, and accessibility features across all environments*
 
@@ -724,4 +734,4 @@ MIT License - you are free to:
 
 **Made with ❤️ for developers who build amazing experiences across all platforms**
 
-[⭐ Star on GitHub](https://github.com/yourusername/smart-env-detector) • [📦 NPM Package](https://www.npmjs.com/package/smart-env-detector) • [📖 Documentation](https://github.com/yourusername/smart-env-detector#readme)
+[⭐ Star on GitHub](https://github.com/Dhruv-158/smart-env-detector) • [📦 NPM Package](https://www.npmjs.com/package/smart-env-detector) • [📖 Documentation](https://dhruv-158.github.io/smart-env-detector/)
