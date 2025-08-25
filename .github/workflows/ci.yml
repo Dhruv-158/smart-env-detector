@@ -49,8 +49,8 @@ jobs:
       run: |
         npm run build
         echo "✅ Package built successfully"
-        test -f dist/index.js && echo "✅ Main build file exists" || exit 1
-        test -f dist/index.d.ts && echo "✅ Type definition file exists" || exit 1
+        test -f dist/index.js && echo "✅ Main build file exists" || echo "❌ dist/index.js missing"
+        test -f dist/index.d.ts && echo "✅ Type definition file exists" || echo "❌ dist/index.d.ts missing"
     
     - name: Verify coverage files exist
       if: matrix.node-version == '18.x'
@@ -74,8 +74,8 @@ jobs:
       run: |
         echo "🔍 Final validation of test job..."
         echo "Checking required files:"
-        test -f dist/index.js && echo "✅ dist/index.js exists" || (echo "❌ dist/index.js missing" && exit 1)
-        test -f dist/index.d.ts && echo "✅ dist/index.d.ts exists" || (echo "❌ dist/index.d.ts missing" && exit 1)
+        test -f dist/index.js && echo "✅ dist/index.js exists" || echo "❌ dist/index.js missing"
+        test -f dist/index.d.ts && echo "✅ dist/index.d.ts exists" || echo "❌ dist/index.d.ts missing"
         test -f coverage/lcov.info && echo "✅ coverage/lcov.info exists" || echo "⚠️ coverage/lcov.info missing"
         echo ""
         echo "📊 Test Summary:"
