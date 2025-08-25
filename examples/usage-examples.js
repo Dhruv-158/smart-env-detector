@@ -1,13 +1,17 @@
-    // Example usage scenarios for Smart Environment Detector
+// Example usage scenarios for Smart Environment Detector
 
-const { detect, supports, getSummary } = require('smart-env-detector');
+const { SmartEnvironmentDetector } = require('../dist/index.js');
+
+// Create a shared detector instance
+const detector = new SmartEnvironmentDetector();
 
 // Example 1: Feature-based progressive enhancement
 function initializeApp() {
   console.log('🔍 Detecting environment...');
-  console.log(getSummary());
   
-  const env = detect({
+  console.log(detector.getSummary());
+  
+  const env = detector.detect({
     includeExperimentalFeatures: true,
     includePerformanceTests: true
   });
@@ -39,7 +43,7 @@ function initializeApp() {
 
 // Example 2: Accessibility-aware initialization
 function setupAccessibility() {
-  const env = detect();
+  const env = detector.detect();
   
   if (env.accessibility.reducedMotion) {
     console.log('🔄 Reduced motion preference detected - disabling animations');
@@ -65,7 +69,7 @@ function setupAccessibility() {
 
 // Example 3: Performance-based resource loading
 async function loadResourcesBasedOnCapabilities() {
-  const env = detect({ includePerformanceTests: true });
+  const env = detector.detect({ includePerformanceTests: true });
   
   // Determine resource loading strategy
   const loadingStrategy = {
@@ -93,7 +97,7 @@ async function loadResourcesBasedOnCapabilities() {
 
 // Example 4: Security-aware feature enablement
 function initializeSecurityFeatures() {
-  const env = detect();
+  const env = detector.detect();
   
   console.log('🔒 Security Analysis:');
   console.log('HTTPS:', env.security.https ? '✅' : '❌');
@@ -135,14 +139,14 @@ function quickCapabilityChecks() {
   ];
   
   capabilities.forEach(capability => {
-    const isSupported = supports(capability);
+    const isSupported = detector.supports(capability);
     console.log(`${isSupported ? '✅' : '❌'} ${capability}`);
   });
 }
 
 // Example 6: Experimental features detection
 function checkExperimentalFeatures() {
-  const env = detect({ includeExperimentalFeatures: true });
+  const env = detector.detect({ includeExperimentalFeatures: true });
   
   console.log('\n🧪 Experimental Features:');
   console.log('WebGPU:', env.experimental.webGPU ? '🆕' : '❌');
@@ -165,7 +169,7 @@ function checkExperimentalFeatures() {
 
 // Example 7: Adaptive UI based on device capabilities
 function setupAdaptiveUI() {
-  const env = detect();
+  const env = detector.detect();
   
   console.log('\n🎨 Setting up adaptive UI...');
   
@@ -201,7 +205,7 @@ function setupAdaptiveUI() {
 
 // Example 8: Feature detection for library authors
 function createFeatureMatrix() {
-  const env = detect({ includeExperimentalFeatures: true });
+  const env = detector.detect({ includeExperimentalFeatures: true });
   
   const featureMatrix = {
     storage: {
@@ -240,7 +244,7 @@ function createFeatureMatrix() {
 
 // Example 9: Performance monitoring setup
 function initializePerformanceMonitoring() {
-  const env = detect({ includePerformanceTests: true });
+  const env = detector.detect({ includePerformanceTests: true });
   
   const performanceConfig = {
     enableMetrics: env.performance.memoryLimit > 1000000000, // 1GB
@@ -260,7 +264,7 @@ function initializePerformanceMonitoring() {
 
 // Example 10: Conditional polyfill loading
 function loadPolyfillsIfNeeded() {
-  const env = detect();
+  const env = detector.detect();
   
   const polyfillsNeeded = [];
   
