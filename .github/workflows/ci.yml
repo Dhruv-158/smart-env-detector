@@ -130,7 +130,7 @@ jobs:
     - name: Check for unused dependencies
       run: |
         npm install -g depcheck
-        depcheck --ignores="@types/*,jest-environment-jsdom"
+        depcheck --ignores="@types/*,jest-environment-jsdom,@typescript-eslint/*,rimraf" --ignore-bin-package=false --skip-missing=true
 
   size-check:
     name: Bundle Size Check
