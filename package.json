@@ -1,6 +1,6 @@
 {
   "name": "smart-env-detector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Intelligent environment detection with detailed runtime context and performance insights",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,16 +34,16 @@
     "typescript",
     "cross-platform"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Dhruv <dhruvprajapati152@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/smart-env-detector.git"
+    "url": "https://github.com/Dhruv-158/smart-env-detector.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/smart-env-detector/issues"
+    "url": "https://github.com/Dhruv-158/smart-env-detector/issues"
   },
-  "homepage": "https://yourusername.github.io/smart-env-detector/",
+  "homepage": "https://dhruv-158.github.io/smart-env-detector/",
   "files": [
     "dist",
     "docs",
