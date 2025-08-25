@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Environment Detector - Documentation & Demo</title>
+    <meta name="description" content="Comprehensive environment detection library for JavaScript applications. Detect platforms, capabilities, and performance metrics.">
+    <meta name="keywords" content="javascript, environment detection, browser detection, platform detection, typescript, npm package">
+    <meta name="author" content="Smart Environment Detector">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/smart-env-detector/">
+    <meta property="og:title" content="Smart Environment Detector - Documentation & Demo">
+    <meta property="og:description" content="Comprehensive environment detection library for JavaScript applications">
+    <meta property="og:image" content="https://yourusername.github.io/smart-env-detector/assets/favicon.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourusername.github.io/smart-env-detector/">
+    <meta property="twitter:title" content="Smart Environment Detector - Documentation & Demo">
+    <meta property="twitter:description" content="Comprehensive environment detection library for JavaScript applications">
+    <meta property="twitter:image" content="https://yourusername.github.io/smart-env-detector/assets/favicon.svg">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+    <link rel="alternate icon" href="./assets/favicon.ico">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/demo.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-search-location"></i>
+                <span>Smart Environment Detector</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#demo">Demo</a>
+                <a href="#docs">Docs</a>
+                <a href="#examples">Examples</a>
+                <a href="https://github.com/yourusername/smart-env-detector" target="_blank" rel="noopener noreferrer" aria-label="View project on GitHub">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://www.npmjs.com/package/smart-env-detector" target="_blank" rel="noopener noreferrer" aria-label="View package on NPM">
+                    <i class="fab fa-npm"></i> NPM
+                </a>
+            </div>
+            <div class="nav-toggle" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main id="main-content">
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Smart Environment Detector</h1>
+                    <p class="hero-subtitle">
+                        A powerful, lightweight library for comprehensive environment detection in JavaScript applications
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature-tag">
+                            <i class="fas fa-feather-alt"></i>
+                            Zero Dependencies
+                        </div>
+                        <div class="feature-tag">
+                            <i class="fab fa-js-square"></i>
+                            TypeScript Ready
+                        </div>
+                        <div class="feature-tag">
+                            <i class="fas fa-globe"></i>
+                            Cross-Platform
+                        </div>
+                        <div class="feature-tag">
+                            <i class="fas fa-universal-access"></i>
+                            Accessibility Aware
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="#demo" class="btn btn-primary">Try Demo</a>
+                        <a href="#docs" class="btn btn-secondary">Read Docs</a>
+                        <div class="install-command">
+                            <code>npm install smart-env-detector</code>
+                            <button class="copy-btn" data-copy="npm install smart-env-detector" aria-label="Copy npm install command" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-demo">
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span>Quick Example</span>
+                        </div>
+                        <pre><code class="language-javascript">import { detect, supports } from 'smart-env-detector';
+
+// Get complete environment info
+const env = detect();
+console.log(env.platform);        // "browser"
+console.log(env.runtime.name);    // "Chrome"
+console.log(env.runtime.version); // "91.0"
+
+// Quick capability checks
+if (supports('webGL')) {
+  initializeWebGLRenderer();
+}
+
+if (supports('serviceWorker')) {
+  registerServiceWorker();
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Environment Properties</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">13.7KB</div>
+                    <div class="stat-label">Bundle Size (gzipped)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">TypeScript Coverage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">27</div>
+                    <div class="stat-label">Passing Tests</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2>Live Environment Detection</h2>
+            <p class="section-subtitle">See what your current environment looks like through Smart Environment Detector</p>
+            
+            <div class="demo-container">
+                <div class="demo-controls">
+                    <button id="detectBtn" class="btn btn-primary" aria-label="Run environment detection">
+                        <i class="fas fa-search"></i>
+                        Detect Environment
+                    </button>
+                    <button id="experimentalBtn" class="btn btn-secondary" aria-label="Toggle experimental features">
+                        <i class="fas fa-flask"></i>
+                        Include Experimental
+                    </button>
+                    <button id="clearBtn" class="btn btn-outline" aria-label="Clear detection results">
+                        <i class="fas fa-trash"></i>
+                        Clear Results
+                    </button>
+                </div>
+
+                <div class="demo-results">
+                    <div id="demoOutput" class="demo-output">
+                        <div class="placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <p>Click "Detect Environment" to see your current environment details</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-capabilities">
+                    <h3>Quick Capability Tests</h3>
+                    <div id="capabilityGrid" class="capability-grid">
+                        <!-- Capabilities will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="docs-section">
+        <div class="container">
+            <h2>Documentation</h2>
+            
+            <div class="docs-nav">
+                <a href="#installation" class="docs-nav-item active" data-target="installation">Installation</a>
+                <a href="#quick-start" class="docs-nav-item" data-target="quick-start">Quick Start</a>
+                <a href="#api-reference" class="docs-nav-item" data-target="api-reference">API Reference</a>
+                <a href="#examples" class="docs-nav-item" data-target="examples">Examples</a>
+            </div>
+
+            <div class="docs-content">
+                <!-- Installation -->
+                <div id="installation" class="docs-panel active">
+                    <h3>Installation</h3>
+                    <p>Install Smart Environment Detector using your preferred package manager:</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>npm</span>
+                            <button class="copy-btn" data-copy="npm install smart-env-detector" aria-label="Copy npm install command" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre><code class="language-bash">npm install smart-env-detector</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>yarn</span>
+                            <button class="copy-btn" data-copy="yarn add smart-env-detector" aria-label="Copy yarn add command" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre><code class="language-bash">yarn add smart-env-detector</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>pnpm</span>
+                            <button class="copy-btn" data-copy="pnpm add smart-env-detector" aria-label="Copy pnpm add command" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre><code class="language-bash">pnpm add smart-env-detector</code></pre>
+                    </div>
+
+                    <h4>CDN Usage</h4>
+                    <p>You can also use it directly in the browser via CDN:</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>HTML</span>
+                            <button class="copy-btn" data-copy='<script src="https://unpkg.com/smart-env-detector@latest/dist/index.umd.js"></script>' aria-label="Copy CDN script tag" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre><code class="language-html">&lt;script src="https://unpkg.com/smart-env-detector@latest/dist/index.umd.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const { detect, supports } = SmartEnvironmentDetector;
+  const env = detect();
+  console.log(env);
+&lt;/script&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- Quick Start -->
+                <div id="quick-start" class="docs-panel">
+                    <h3>Quick Start</h3>
+                    <p>Get started with Smart Environment Detector in just a few lines of code:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Basic Usage</span>
+                            <button class="copy-btn" data-copy="import { detect, supports, getSummary } from 'smart-env-detector';
+
+// Get complete environment information
+const env = detect();
+console.log(env.platform);        // 'browser'
+console.log(env.runtime.name);    // 'Chrome'
+console.log(env.runtime.version); // '91.0'
+
+// Quick capability checks
+if (supports('webGL')) {
+  initializeWebGLRenderer();
+}
+
+if (supports('indexedDB')) {
+  setupOfflineStorage();
+}
+
+// Human-readable summary
+console.log(getSummary()); 
+// Output: 'Chrome 91.0 on browser'" aria-label="Copy basic usage example" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre><code class="language-javascript">import { detect, supports, getSummary } from 'smart-env-detector';
+
+// Get complete environment information
+const env = detect();
+console.log(env.platform);        // "browser"
+console.log(env.runtime.name);    // "Chrome"
+console.log(env.runtime.version); // "91.0"
+
+// Quick capability checks
+if (supports('webGL')) {
+  initializeWebGLRenderer();
+}
+
+if (supports('indexedDB')) {
+  setupOfflineStorage();
+}
+
+// Human-readable summary
+console.log(getSummary()); 
+// Output: "Chrome 91.0 on browser"</code></pre>
+                    </div>
+
+                    <h4>Advanced Usage</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Class-based API</span>
+                            <button class="copy-btn" data-copy="import { SmartEnvironmentDetector } from 'smart-env-detector';
+
+const detector = new SmartEnvironmentDetector();
+
+// Detect with experimental features
+const env = detector.detect({
+  includeExperimentalFeatures: true,
+  cacheDuration: 60000 // Cache for 1 minute
+});
+
+// Check cutting-edge capabilities
+if (env.experimental.webGPU) {
+  console.log('WebGPU is available!');
+}
+
+if (env.experimental.webXR) {
+  console.log('VR/AR capabilities detected!');
+}" aria-label="Copy class-based API example" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre><code class="language-javascript">import { SmartEnvironmentDetector } from 'smart-env-detector';
+
+const detector = new SmartEnvironmentDetector();
+
+// Detect with experimental features
+const env = detector.detect({
+  includeExperimentalFeatures: true,
+  cacheDuration: 60000 // Cache for 1 minute
+});
+
+// Check cutting-edge capabilities
+if (env.experimental.webGPU) {
+  console.log('WebGPU is available!');
+}
+
+if (env.experimental.webXR) {
+  console.log('VR/AR capabilities detected!');
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- API Reference -->
+                <div id="api-reference" class="docs-panel">
+                    <h3>API Reference</h3>
+                    
+                    <div class="api-section">
+                        <h4><code>detect(options?: DetectionOptions): EnvironmentInfo</code></h4>
+                        <p>Returns comprehensive environment information about the current runtime.</p>
+                        
+                        <h5>Parameters:</h5>
+                        <div class="code-block">
+                            <pre><code class="language-typescript">interface DetectionOptions {
+  includeExperimentalFeatures?: boolean; // Include experimental APIs (default: false)
+  cacheDuration?: number;                 // Cache duration in ms (default: 300000)
+}</code></pre>
+                        </div>
+
+                        <h5>Returns:</h5>
+                        <div class="code-block">
+                            <pre><code class="language-typescript">interface EnvironmentInfo {
+  platform: 'browser' | 'nodejs' | 'webworker' | 'electron' | 'react-native' | 'unknown';
+  runtime: {
+    name: string;
+    version: string;
+    engine: string;
+  };
+  capabilities: {
+    localStorage: boolean;
+    sessionStorage: boolean;
+    indexedDB: boolean;
+    webGL: boolean;
+    webAssembly: boolean;
+    serviceWorker: boolean;
+    // ... and many more
+  };
+  performance: {
+    memoryLimit: number | null;
+    cpuCores: number | null;
+    connectionType: string | null;
+    devicePixelRatio: number | null;
+  };
+  security: {
+    https: boolean;
+    mixedContent: boolean;
+    cookiesEnabled: boolean;
+    thirdPartyCookies: boolean;
+  };
+  accessibility: {
+    reducedMotion: boolean;
+    highContrast: boolean;
+    screenReader: boolean;
+  };
+  experimental?: {
+    webGPU: boolean;
+    fileSystemAccess: boolean;
+    webRTC: boolean;
+    webXR: boolean;
+  };
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="api-section">
+                        <h4><code>supports(capability: string): boolean</code></h4>
+                        <p>Quick check for specific platform capability.</p>
+                        
+                        <div class="code-block">
+                            <pre><code class="language-javascript">if (supports('webGL')) {
+  // WebGL is available
+  initializeWebGLRenderer();
+}
+
+if (supports('serviceWorker')) {
+  // Service Worker supported
+  registerServiceWorker();
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="api-section">
+                        <h4><code>getSummary(): string</code></h4>
+                        <p>Returns a human-readable environment summary.</p>
+                        
+                        <div class="code-block">
+                            <pre><code class="language-javascript">console.log(getSummary());
+// Outputs: "Chrome 91.0 on browser"
+//          "Node.js v16.14.0 on nodejs"
+//          "Safari 14.1 on browser"</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Examples -->
+                <div id="examples" class="docs-panel">
+                    <h3>Examples</h3>
+                    
+                    <div class="example-section">
+                        <h4>Progressive Feature Loading</h4>
+                        <p>Adapt your application based on available capabilities:</p>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">import { detect, supports } from 'smart-env-detector';
+
+async function initializeApp() {
+  const env = detect();
+  
+  // Load features based on capabilities
+  if (supports('webGL') && env.performance.cpuCores >= 4) {
+    // High-performance 3D features
+    const { WebGLRenderer } = await import('./renderers/webgl-renderer');
+    return new WebGLRenderer();
+  } else if (supports('webGL')) {
+    // Basic 3D features
+    const { BasicWebGLRenderer } = await import('./renderers/basic-webgl');
+    return new BasicWebGLRenderer();
+  } else {
+    // 2D fallback
+    const { Canvas2DRenderer } = await import('./renderers/canvas-renderer');
+    return new Canvas2DRenderer();
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>Accessibility-First UI</h4>
+                        <p>Respect user preferences for better accessibility:</p>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">import { detect } from 'smart-env-detector';
+
+function setupAccessibility() {
+  const env = detect();
+  
+  // Respect motion preferences
+  if (env.accessibility.reducedMotion) {
+    document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+    console.log('Animations disabled per user preference');
+  }
+  
+  // High contrast support
+  if (env.accessibility.highContrast) {
+    document.body.classList.add('high-contrast');
+    console.log('High contrast mode enabled');
+  }
+  
+  // Screen reader optimizations
+  if (env.accessibility.screenReader) {
+    document.body.classList.add('screen-reader-optimized');
+    loadAriaEnhancements();
+    console.log('Screen reader optimizations enabled');
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>Cross-Platform Adaptation</h4>
+                        <p>Handle different platforms gracefully:</p>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">import { detect } from 'smart-env-detector';
+
+function adaptToPlatform() {
+  const env = detect();
+  
+  switch (env.platform) {
+    case 'browser':
+      // Browser-specific optimizations
+      if (env.runtime.name === 'Safari') {
+        loadSafariPolyfills();
+      }
+      enableBrowserFeatures();
+      break;
+      
+    case 'nodejs':
+      // Node.js environment
+      enableServerFeatures();
+      setupFileSystemAccess();
+      break;
+      
+    case 'electron':
+      // Electron app
+      enableDesktopFeatures();
+      setupNativeIntegration();
+      break;
+      
+    case 'react-native':
+      // React Native app
+      enableMobileFeatures();
+      setupNativeModules();
+      break;
+      
+    default:
+      // Unknown platform - use safe defaults
+      enableBasicFeatures();
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Smart Environment Detector</h4>
+                    <p>A powerful, lightweight library for comprehensive environment detection in JavaScript applications.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername/smart-env-detector" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository" title="View on GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.npmjs.com/package/smart-env-detector" target="_blank" rel="noopener noreferrer" aria-label="NPM package" title="View on NPM">
+                            <i class="fab fa-npm"></i>
+                        </a>
+                        <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Twitter profile" title="Follow on Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#quick-start">Quick Start</a></li>
+                        <li><a href="#api-reference">API Reference</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://github.com/yourusername/smart-env-detector/issues" target="_blank" rel="noopener noreferrer">Report Issues</a></li>
+                        <li><a href="https://github.com/yourusername/smart-env-detector/discussions" target="_blank" rel="noopener noreferrer">Discussions</a></li>
+                        <li><a href="https://github.com/yourusername/smart-env-detector/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contributing</a></li>
+                        <li><a href="https://github.com/yourusername/smart-env-detector/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">License</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Package Info</h4>
+                    <div class="package-badges">
+                        <img src="https://img.shields.io/npm/v/smart-env-detector.svg" alt="npm version">
+                        <img src="https://img.shields.io/npm/dm/smart-env-detector.svg" alt="npm downloads">
+                        <img src="https://img.shields.io/bundlephobia/minzip/smart-env-detector.svg" alt="bundle size">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Smart Environment Detector. Released under the MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://unpkg.com/smart-env-detector@latest/dist/index.umd.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

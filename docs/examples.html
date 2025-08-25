@@ -1,0 +1,267 @@
+<!-- Demo Examples for Smart Environment Detector -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Environment Detector - Live Examples</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .result {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Smart Environment Detector - Live Examples</h1>
+    <p>Interactive examples demonstrating the capabilities of Smart Environment Detector</p>
+
+    <div class="example">
+        <h2>Basic Detection</h2>
+        <button onclick="basicDetection()">Run Basic Detection</button>
+        <div id="basic-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Platform & Runtime Info</h2>
+        <button onclick="platformInfo()">Get Platform Information</button>
+        <div id="platform-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Capability Testing</h2>
+        <button onclick="testCapabilities()">Test All Capabilities</button>
+        <div id="capabilities-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Performance Metrics</h2>
+        <button onclick="performanceMetrics()">Get Performance Metrics</button>
+        <div id="performance-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Security Context</h2>
+        <button onclick="securityContext()">Check Security Context</button>
+        <div id="security-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Accessibility Preferences</h2>
+        <button onclick="accessibilityPrefs()">Check Accessibility Preferences</button>
+        <div id="accessibility-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Experimental Features</h2>
+        <button onclick="experimentalFeatures()">Test Experimental Features</button>
+        <div id="experimental-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Capability Checks</h2>
+        <button onclick="quickCapabilityChecks()">Quick Capability Checks</button>
+        <div id="quick-capabilities-result" class="result"></div>
+    </div>
+
+    <div class="example">
+        <h2>Environment Summary</h2>
+        <button onclick="environmentSummary()">Get Environment Summary</button>
+        <div id="summary-result" class="result"></div>
+    </div>
+
+    <!-- Load Smart Environment Detector from CDN -->
+    <script src="https://unpkg.com/smart-env-detector@latest/dist/index.umd.js"></script>
+    
+    <script>
+        // Ensure the library is loaded
+        if (typeof SmartEnvironmentDetector === 'undefined') {
+            document.body.innerHTML = '<h1>Error: Smart Environment Detector not loaded</h1><p>Please check your internet connection and refresh the page.</p>';
+        }
+
+        const { detect, supports, getSummary } = SmartEnvironmentDetector;
+
+        function basicDetection() {
+            try {
+                const env = detect();
+                document.getElementById('basic-result').textContent = JSON.stringify(env, null, 2);
+            } catch (error) {
+                document.getElementById('basic-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function platformInfo() {
+            try {
+                const env = detect();
+                const platformInfo = {
+                    platform: env.platform,
+                    runtime: env.runtime
+                };
+                document.getElementById('platform-result').textContent = JSON.stringify(platformInfo, null, 2);
+            } catch (error) {
+                document.getElementById('platform-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function testCapabilities() {
+            try {
+                const env = detect();
+                const capabilities = env.capabilities;
+                
+                // Create a formatted display
+                let result = 'Capabilities Status:\n\n';
+                Object.entries(capabilities).forEach(([key, value]) => {
+                    const status = value ? '✅ Supported' : '❌ Not Supported';
+                    result += `${key}: ${status}\n`;
+                });
+                
+                document.getElementById('capabilities-result').textContent = result;
+            } catch (error) {
+                document.getElementById('capabilities-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function performanceMetrics() {
+            try {
+                const env = detect();
+                const performance = env.performance;
+                
+                let result = 'Performance Metrics:\n\n';
+                result += `Memory Limit: ${performance.memoryLimit ? (performance.memoryLimit / 1024 / 1024 / 1024).toFixed(2) + ' GB' : 'Unknown'}\n`;
+                result += `CPU Cores: ${performance.cpuCores || 'Unknown'}\n`;
+                result += `Connection Type: ${performance.connectionType || 'Unknown'}\n`;
+                result += `Device Pixel Ratio: ${performance.devicePixelRatio || 'Unknown'}\n`;
+                
+                document.getElementById('performance-result').textContent = result;
+            } catch (error) {
+                document.getElementById('performance-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function securityContext() {
+            try {
+                const env = detect();
+                const security = env.security;
+                
+                let result = 'Security Context:\n\n';
+                result += `HTTPS: ${security.https ? '✅ Enabled' : '❌ Disabled'}\n`;
+                result += `Mixed Content: ${security.mixedContent ? '⚠️ Detected' : '✅ Safe'}\n`;
+                result += `Cookies Enabled: ${security.cookiesEnabled ? '✅ Enabled' : '❌ Disabled'}\n`;
+                result += `Third-party Cookies: ${security.thirdPartyCookies ? '✅ Allowed' : '❌ Blocked'}\n`;
+                
+                document.getElementById('security-result').textContent = result;
+            } catch (error) {
+                document.getElementById('security-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function accessibilityPrefs() {
+            try {
+                const env = detect();
+                const accessibility = env.accessibility;
+                
+                let result = 'Accessibility Preferences:\n\n';
+                result += `Reduced Motion: ${accessibility.reducedMotion ? '✅ Preferred' : '❌ Not Preferred'}\n`;
+                result += `High Contrast: ${accessibility.highContrast ? '✅ Preferred' : '❌ Not Preferred'}\n`;
+                result += `Screen Reader: ${accessibility.screenReader ? '✅ Detected' : '❌ Not Detected'}\n`;
+                
+                document.getElementById('accessibility-result').textContent = result;
+            } catch (error) {
+                document.getElementById('accessibility-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function experimentalFeatures() {
+            try {
+                const env = detect({ includeExperimentalFeatures: true });
+                const experimental = env.experimental || {};
+                
+                let result = 'Experimental Features:\n\n';
+                result += `WebGPU: ${experimental.webGPU ? '✅ Available' : '❌ Not Available'}\n`;
+                result += `File System Access: ${experimental.fileSystemAccess ? '✅ Available' : '❌ Not Available'}\n`;
+                result += `WebRTC: ${experimental.webRTC ? '✅ Available' : '❌ Not Available'}\n`;
+                result += `WebXR: ${experimental.webXR ? '✅ Available' : '❌ Not Available'}\n`;
+                
+                document.getElementById('experimental-result').textContent = result;
+            } catch (error) {
+                document.getElementById('experimental-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function quickCapabilityChecks() {
+            try {
+                const capabilities = [
+                    'webGL', 'webAssembly', 'serviceWorker', 'pushNotifications',
+                    'geolocation', 'camera', 'microphone', 'bluetooth',
+                    'localStorage', 'indexedDB', 'fullscreen', 'vibration'
+                ];
+                
+                let result = 'Quick Capability Checks:\n\n';
+                
+                capabilities.forEach(capability => {
+                    const supported = supports(capability);
+                    result += `${capability}: ${supported ? '✅ Supported' : '❌ Not Supported'}\n`;
+                });
+                
+                document.getElementById('quick-capabilities-result').textContent = result;
+            } catch (error) {
+                document.getElementById('quick-capabilities-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function environmentSummary() {
+            try {
+                const summary = getSummary();
+                const env = detect();
+                
+                let result = 'Environment Summary:\n\n';
+                result += `Summary: ${summary}\n\n`;
+                result += `Platform: ${env.platform}\n`;
+                result += `Runtime: ${env.runtime.name} ${env.runtime.version}\n`;
+                result += `Engine: ${env.runtime.engine}\n`;
+                
+                document.getElementById('summary-result').textContent = result;
+            } catch (error) {
+                document.getElementById('summary-result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        // Auto-run basic detection on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Smart Environment Detector Examples Loaded');
+            console.log('Library version:', typeof SmartEnvironmentDetector);
+        });
+    </script>
+</body>
+</html>

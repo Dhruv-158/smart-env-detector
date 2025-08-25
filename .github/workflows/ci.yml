@@ -1,0 +1,164 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test on Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run type checking
+      run: npx tsc --noEmit
+    
+    - name: Run tests
+      run: npm test -- --coverage
+    
+    - name: Build package
+      run: npm run build
+    
+    - name: Upload coverage to Codecov
+      if: matrix.node-version == '18.x'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  test-browsers:
+    name: Browser Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build package
+      run: npm run build
+    
+    - name: Test in different environments
+      run: |
+        # Test the built package
+        node -e "const pkg = require('./dist/index.js'); console.log('Package loaded successfully:', pkg.getSummary());"
+
+  publish-dry-run:
+    name: Publish Dry Run
+    runs-on: ubuntu-latest
+    needs: [test, test-browsers]
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        registry-url: 'https://registry.npmjs.org'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build package
+      run: npm run build
+    
+    - name: Test npm pack
+      run: npm pack --dry-run
+    
+    - name: Check package contents
+      run: |
+        npm pack
+        tar -tzf *.tgz
+        rm *.tgz
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run security audit
+      run: npm audit --audit-level moderate
+      continue-on-error: true
+    
+    - name: Check for unused dependencies
+      run: |
+        npm install -g depcheck
+        depcheck --ignores="@types/*,jest-environment-jsdom"
+
+  size-check:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build package
+      run: npm run build
+    
+    - name: Check bundle size
+      run: |
+        echo "📦 Package size analysis:"
+        du -h dist/*
+        echo ""
+        echo "📊 Detailed file sizes:"
+        ls -la dist/
+        echo ""
+        echo "🔍 Gzipped size estimation:"
+        gzip -c dist/index.js | wc -c | awk '{print "index.js (gzipped): " $1 " bytes"}'
