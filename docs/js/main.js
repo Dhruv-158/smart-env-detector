@@ -1,5 +1,167 @@
+// Fallback Smart Environment Detector implementation
+function createFallbackDetector() {
+    return {
+        detect: function(options = {}) {
+            const includeExperimental = options.includeExperimentalFeatures || false;
+            
+            // Detect platform and runtime
+            const userAgent = navigator.userAgent.toLowerCase();
+            let platform = 'browser';
+            let runtimeName = 'Unknown';
+            let runtimeVersion = 'Unknown';
+            let engine = 'Unknown';
+
+            // Browser detection
+            if (userAgent.includes('chrome') && !userAgent.includes('edg')) {
+                runtimeName = 'Chrome';
+                const match = userAgent.match(/chrome\/(\d+)/);
+                runtimeVersion = match ? match[1] : 'Unknown';
+                engine = 'Blink';
+            } else if (userAgent.includes('firefox')) {
+                runtimeName = 'Firefox';
+                const match = userAgent.match(/firefox\/(\d+)/);
+                runtimeVersion = match ? match[1] : 'Unknown';
+                engine = 'Gecko';
+            } else if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+                runtimeName = 'Safari';
+                const match = userAgent.match(/version\/(\d+)/);
+                runtimeVersion = match ? match[1] : 'Unknown';
+                engine = 'WebKit';
+            } else if (userAgent.includes('edg')) {
+                runtimeName = 'Edge';
+                const match = userAgent.match(/edg\/(\d+)/);
+                runtimeVersion = match ? match[1] : 'Unknown';
+                engine = 'Blink';
+            }
+
+            // Check if running in Node.js
+            if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+                platform = 'nodejs';
+                runtimeName = 'Node.js';
+                runtimeVersion = process.versions.node;
+                engine = 'V8';
+            }
+
+            // Check if running in a web worker
+            if (typeof importScripts === 'function') {
+                platform = 'webworker';
+            }
+
+            // Capability detection
+            const capabilities = {};
+            const capabilityTests = [
+                'localStorage', 'sessionStorage', 'indexedDB', 'webGL', 'webAssembly',
+                'serviceWorker', 'pushNotifications', 'geolocation', 'camera',
+                'microphone', 'bluetooth', 'vibration', 'fullscreen', 'clipboard',
+                'share', 'wakeLock'
+            ];
+
+            capabilityTests.forEach(cap => {
+                capabilities[cap] = this.supports(cap);
+            });
+
+            // Performance metrics
+            const performance = {
+                memoryLimit: navigator.deviceMemory ? navigator.deviceMemory * 1024 * 1024 * 1024 : null,
+                cpuCores: navigator.hardwareConcurrency || null,
+                connectionType: navigator.connection ? navigator.connection.effectiveType : null,
+                devicePixelRatio: window.devicePixelRatio || null
+            };
+
+            // Security context
+            const security = {
+                https: location.protocol === 'https:',
+                mixedContent: location.protocol === 'https:' && document.querySelectorAll('script[src^="http:"], link[href^="http:"]').length > 0,
+                cookiesEnabled: navigator.cookieEnabled,
+                thirdPartyCookies: navigator.cookieEnabled
+            };
+
+            // Accessibility preferences
+            const accessibility = {
+                reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+                highContrast: window.matchMedia('(prefers-contrast: high)').matches,
+                screenReader: !!(window.speechSynthesis || document.querySelector('[aria-live]'))
+            };
+
+            const result = {
+                platform,
+                runtime: { name: runtimeName, version: runtimeVersion, engine },
+                capabilities,
+                performance,
+                security,
+                accessibility
+            };
+
+            if (includeExperimental) {
+                result.experimental = {
+                    webGPU: 'gpu' in navigator,
+                    fileSystemAccess: 'showOpenFilePicker' in window,
+                    webRTC: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+                    webXR: 'xr' in navigator
+                };
+            }
+
+            return result;
+        },
+
+        supports: function(capability) {
+            try {
+                switch (capability) {
+                    case 'localStorage':
+                        return typeof Storage !== 'undefined' && 'localStorage' in window;
+                    case 'sessionStorage':
+                        return typeof Storage !== 'undefined' && 'sessionStorage' in window;
+                    case 'indexedDB':
+                        return 'indexedDB' in window;
+                    case 'webGL':
+                        const canvas = document.createElement('canvas');
+                        return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+                    case 'webAssembly':
+                        return 'WebAssembly' in window;
+                    case 'serviceWorker':
+                        return 'serviceWorker' in navigator;
+                    case 'pushNotifications':
+                        return 'PushManager' in window;
+                    case 'geolocation':
+                        return 'geolocation' in navigator;
+                    case 'camera':
+                    case 'microphone':
+                        return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+                    case 'bluetooth':
+                        return 'bluetooth' in navigator;
+                    case 'vibration':
+                        return 'vibrate' in navigator;
+                    case 'fullscreen':
+                        return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+                    case 'clipboard':
+                        return 'clipboard' in navigator;
+                    case 'share':
+                        return 'share' in navigator;
+                    case 'wakeLock':
+                        return 'wakeLock' in navigator;
+                    default:
+                        return false;
+                }
+            } catch {
+                return false;
+            }
+        },
+
+        getSummary: function() {
+            const env = this.detect();
+            return `${env.runtime.name} ${env.runtime.version} on ${env.platform}`;
+        }
+    };
+}
+
 // Main JavaScript for the documentation site
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if SmartEnvironmentDetector loaded from CDN, otherwise use fallback
+    if (typeof SmartEnvironmentDetector === 'undefined') {
+        console.warn('SmartEnvironmentDetector CDN failed, using fallback implementation');
+        window.SmartEnvironmentDetector = createFallbackDetector();
+    }
+    
     // Initialize all components
     initNavigation();
     initDocsNavigation();
@@ -75,8 +237,8 @@ function initDemoFunctionality() {
     // Toggle experimental features
     experimentalBtn.addEventListener('click', () => {
         includeExperimental = !includeExperimental;
-        experimentalBtn.textContent = includeExperimental ? 
-            '🧪 Experimental: ON' : '🧪 Include Experimental';
+        experimentalBtn.innerHTML = includeExperimental ? 
+            '<i class="fas fa-flask"></i> Experimental: ON' : '<i class="fas fa-flask"></i> Include Experimental';
         experimentalBtn.classList.toggle('btn-primary', includeExperimental);
         experimentalBtn.classList.toggle('btn-secondary', !includeExperimental);
     });
@@ -90,6 +252,7 @@ function initDemoFunctionality() {
             </div>
         `;
         capabilityGrid.innerHTML = '';
+        updateCapabilityGrid();
     });
     
     // Run initial capability test
@@ -108,16 +271,19 @@ function runEnvironmentDetection(includeExperimental = false) {
         </div>
     `;
     
-    // Simulate async detection (even though it's sync)
+    // Simulate async detection
     setTimeout(() => {
         try {
-            // Check if SmartEnvironmentDetector is available
-            if (typeof SmartEnvironmentDetector === 'undefined') {
-                throw new Error('SmartEnvironmentDetector not loaded');
+            let detector;
+            
+            // Use the global SmartEnvironmentDetector (either from CDN or fallback)
+            if (window.SmartEnvironmentDetector && typeof window.SmartEnvironmentDetector.detect === 'function') {
+                detector = window.SmartEnvironmentDetector;
+            } else {
+                throw new Error('Environment detector not available');
             }
             
-            const { detect } = SmartEnvironmentDetector;
-            const env = detect({ includeExperimentalFeatures: includeExperimental });
+            const env = detector.detect({ includeExperimentalFeatures: includeExperimental });
             
             displayEnvironmentResults(env);
             
@@ -366,27 +532,25 @@ function updateCapabilityGrid() {
         { name: 'wakeLock', icon: 'fas fa-eye' }
     ];
     
-    // Check if SmartEnvironmentDetector is available
-    if (typeof SmartEnvironmentDetector === 'undefined') {
+    // Check if detector is available
+    if (!window.SmartEnvironmentDetector || typeof window.SmartEnvironmentDetector.supports !== 'function') {
         capabilityGrid.innerHTML = `
             <div class="capability-item">
                 <div class="capability-name">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <span>Library not loaded</span>
+                    <span>Detector loading...</span>
                 </div>
-                <span class="capability-status unknown">Unknown</span>
+                <span class="capability-status unknown">Pending</span>
             </div>
         `;
         return;
     }
     
-    const { supports } = SmartEnvironmentDetector;
-    
     const html = capabilities.map(capability => {
         let status, statusClass;
         
         try {
-            const supported = supports(capability.name);
+            const supported = window.SmartEnvironmentDetector.supports(capability.name);
             status = supported ? 'Supported' : 'Not Supported';
             statusClass = supported ? 'supported' : 'not-supported';
         } catch (error) {

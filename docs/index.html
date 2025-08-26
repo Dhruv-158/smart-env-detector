@@ -626,7 +626,11 @@ function adaptToPlatform() {
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://unpkg.com/smart-env-detector@latest/dist/index.umd.js"></script>
+    
+    <!-- Load Smart Environment Detector from CDN (with fallback handling in main.js) -->
+    <script src="https://unpkg.com/smart-env-detector@latest/dist/index.umd.js" onerror="console.warn('Failed to load SmartEnvironmentDetector from CDN - fallback will be used')"></script>
+    
+    <!-- Load main.js last so it can handle the fallback -->
     <script src="./js/main.js"></script>
 </body>
 </html>
